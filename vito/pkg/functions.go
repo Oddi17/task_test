@@ -8,8 +8,7 @@ import (
 )
 
 func UserBalance(id int) (balance Balances, err error) {
-    //db, _ := sql.Open("mysql", "root@tcp(localhost:3306)/MyFirstBD")
-	//db, _ := sql.Open("mysql", "root:pass@tcp(127.0.0.1:3307)/MyFirstBD")
+
 	db, _ := sql.Open("mysql", "root:pass@tcp(172.17.0.1:3307)/MyFirstBD")
 	row := db.QueryRow("SELECT ID,ACCOUNT FROM Users WHERE id=?", id)
 	err = row.Scan(&balance.ID, &balance.ACCOUNT)
@@ -21,8 +20,7 @@ func UserBalance(id int) (balance Balances, err error) {
 }
 
 func (User Balances) createBalance() (account float32, err error) {
-	//db, _ := sql.Open("mysql", "root@tcp(localhost:3306)/MyFirstBD")
-	//db, _ := sql.Open("mysql", "root:pass@tcp(127.0.0.1:3307)/MyFirstBD")
+	
 	db, _ := sql.Open("mysql", "root:pass@tcp(172.17.0.1:3307)/MyFirstBD")
 	var (
 		check   float32
@@ -79,8 +77,7 @@ func (User Balances) createBalance() (account float32, err error) {
 
 
 func (t Reservation) TransactionReserv() (newValue float32, err error) {
-	//db, _ := sql.Open("mysql", "root@tcp(localhost:3306)/MyFirstBD")
-	//db, _ := sql.Open("mysql", "root:pass@tcp(127.0.0.1:3307)/MyFirstBD")
+	
 	db, _ := sql.Open("mysql", "root:pass@tcp(172.17.0.1:3307)/MyFirstBD")
 	tx, err := db.Begin()
 	if err != nil {
@@ -89,7 +86,7 @@ func (t Reservation) TransactionReserv() (newValue float32, err error) {
 	fmt.Println(t.ID)
 	var savBalance float32
 	var price float32
-	//var message string
+	
 	row := tx.QueryRow("SELECT ACCOUNT FROM Users WHERE ID=?", t.ID)
 	err = row.Scan(&savBalance)
 	if err != nil {
@@ -144,8 +141,7 @@ func (t Reservation) TransactionReserv() (newValue float32, err error) {
 
 func (t Transaction) Confirm() (err error) {
 	var id_service, amount int
-	//db, _ := sql.Open("mysql", "root:pass@tcp(127.0.0.1:3307)/MyFirstBD")
-	//db, _ := sql.Open("mysql", "root@tcp(localhost:3306)/MyFirstBD")
+	
 	db, _ := sql.Open("mysql", "root:pass@tcp(172.17.0.1:3307)/MyFirstBD")
 	row := db.QueryRow(
 		"SELECT ID_SERVICE,AMOUNT FROM Reservation WHERE ID_USER=? AND ID_ORDER=?",
@@ -183,8 +179,7 @@ func (t Transaction) Confirm() (err error) {
 
 func (t Transaction) Reject() (err error) {
 	var amount, account int
-	//db, _ := sql.Open("mysql", "root@tcp(localhost:3306)/MyFirstBD")
-	//db, _ := sql.Open("mysql", "root:pass@tcp(127.0.0.1:3307)/MyFirstBD")
+
 	db, _ := sql.Open("mysql", "root:pass@tcp(172.17.0.1:3307)/MyFirstBD")
 	fmt.Println(t.ID, t.ID_ORDER)
 	row := db.QueryRow(
