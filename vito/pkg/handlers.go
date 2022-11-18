@@ -18,7 +18,7 @@ func AddUserBalance(c *gin.Context) {
 	account, err := User.createBalance()
 	if err != nil {
 		if fmt.Sprintf("%s", err) == "bad payment" {
-			message := fmt.Sprintf("Error : %s", err) ///??????? а если другая ошибка
+			message := fmt.Sprintf("Error : %s", err) 
 			c.JSON(http.StatusPaymentRequired, gin.H{
 				"message": message,
 			})
@@ -62,7 +62,7 @@ func Reserv(c *gin.Context) {
 	newvalue, err := t.TransactionReserv()
 	if err != nil {
 		if fmt.Sprintf("%s", err) == "insufficient funds" {
-			message := fmt.Sprintf("Error : %s", err) ///??????? а если другая ошибка
+			message := fmt.Sprintf("Error : %s", err) 
 			c.JSON(http.StatusPaymentRequired, gin.H{
 				"message": message,
 			})
@@ -85,7 +85,7 @@ func TransactionConfirm(c *gin.Context) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	err = t.Confirm() //?????
+	err = t.Confirm() 
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -103,7 +103,7 @@ func TransactionReject(c *gin.Context) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	err = t.Reject() //?????
+	err = t.Reject() 
 	if err != nil {
 		log.Fatalln(err)
 	}
